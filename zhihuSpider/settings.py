@@ -93,3 +93,10 @@ MONGODB_COLLECTION = 'user'
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware':123,
+    'zhihuSpider.middlewares.IPPOOLS':124,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware' :10,
+    'zhihuSpider.middlewares.UAPOOLS':11
+}

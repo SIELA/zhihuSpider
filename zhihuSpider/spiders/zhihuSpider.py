@@ -10,7 +10,8 @@ import json
 
 
 class ZhihuspiderSpider(scrapy.Spider):
-    name = "zhihuSpider"
+    name = 'zhihuSpider'
+    apiurl = 'http://api.ip.data5u.com/dynamic/get.html?order=efed1c976c7b0f2bbf5b5301bc726329&sep=3'
     start_url = 'https://www.zhihu.com/people/xu-jing-85-20/following'
     uid = start_url.split('/')[4]
 
@@ -19,7 +20,8 @@ class ZhihuspiderSpider(scrapy.Spider):
                         meta={'cookiejar': 1},
                         cookies = {'q_c1':'afa8370f46f94446b7df38714f6cc9d9|1496218821000|1496218821000','l_n_c':'1','r_cap_id':'"MTMwZGY1MzkyNTIwNDAzMTg2MDI4OTAyYmJkZTk1ODQ=|1496801988|88f8872ab1da1bfb41c0a9372b1a9304e2d4f75b"','cap_id':'"MmYxN2EyNjNhYjlkNGJmMGI5MGZkODA4ZDVmOGJlZjI=|1496801988|983b93c147e7e7004279e5ee2e88de2c28adb03e"',' l_cap_id':'"YWVmN2Q5NmI4NDI0NGYyN2IzNWViMmY4OGQ1ZGRmNDg=|1496801988|6c0ecfdaa10529838f038e55917dc83846ee1f97"','_xsrf':'b1859bc987c204b2cd208e7df65ed372','d_c0':'"AJDCjZYq4AuPToa-kxb9kV9b_8Ht-LNZ5ls=|1496802110"','_zap':'3d4de19e-031f-4adf-9164-efcebb534d06','n_c':'1','__utma':'51854390.150453406.1496802087.1496802087.1496802087.1','__utmc':'51854390','__utmz':'51854390.1496802087.1.1.utmcsr=zhihu.com|utmccn=(referral)|utmcmd=referral|utmcct=/explore','__utmv':'51854390.100--|2=registration_date=20151109=1^3=entry_date=20151109=1'},
                         headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0' }
-                        )
+                             
+        )
         yield req
         
             
