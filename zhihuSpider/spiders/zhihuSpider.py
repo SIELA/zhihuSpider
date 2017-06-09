@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import re
 import datetime
 import json
+from scrapy.exceptions import IgnoreRequest
 
 
 class ZhihuspiderSpider(scrapy.Spider):
@@ -69,3 +70,15 @@ class ZhihuspiderSpider(scrapy.Spider):
             for next_url in next_page_url:
                 req = scrapy.Request(response.urljoin(next_url+'/following'), meta={'cookiejar': response.meta['cookiejar']},headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0' })
                 yield req
+
+class ZhihuBanDetectionPolicy(object):
+    """ Zhihu ban detection rules. """
+    NOT_BAN_STATUSES = {200, 301}
+    NOT_BAN_EXCEPTIONS = (IgnoreRequest,)
+    def response_is_ban(self, request, response):
+        if response.status == 302:
+            return True
+        return False
+
+    def exception_is_ban(self, request, exception):
+        return not isinstance(exception, self.NOT_BAN_EXCEPTIONS)

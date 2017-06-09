@@ -94,9 +94,30 @@ MONGODB_COLLECTION = 'user'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+
+#失败后重试次数
+RETRY_TIMES = 3
+#重试的错误码
+RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware':123,
-    'zhihuSpider.middlewares.IPPOOLS':124,
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware' :10,
-    'zhihuSpider.middlewares.UAPOOLS':11
+#    'scrapy.downloadermiddlewares.retry.RetryMiddleware':90,
+#    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware':110,
+    'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+    'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+#'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware' :130,
+#    'zhihuSpider.middlewares.UAPOOLS':140
 }
+
+
+def load_lines(path):
+    with open(path, 'rb') as f:
+        return [line.strip() for line in
+                f.read().decode('utf8').splitlines()
+                if line.strip()]
+
+ROTATING_PROXY_LIST = load_lines('ip_pool.txt')
+ROTATING_PROXY_BACKOFF_BASE = 999
+
+
+ROTATING_PROXY_BAN_POLICY = 'zhihuSpider.spiders.zhihuSpider.ZhihuBanDetectionPolicy'
+ROTATING_PROXY_PAGE_RETRY_TIMES = 999
