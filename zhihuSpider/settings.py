@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'zhihuSpider.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'stack (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:53.0) Gecko/20100101 Firefox/53.0'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -96,19 +96,26 @@ MONGODB_COLLECTION = 'user'
 
 
 #失败后重试次数
+
+
 RETRY_TIMES = 3
 #重试的错误码
-RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
+RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 408]
+HTTPERROR_ALLOWED_CODES = [404]
 DOWNLOADER_MIDDLEWARES = {
+    'zhihuSpider.middlewares.ZhihuspiderSpiderMiddleware':543
 #    'scrapy.downloadermiddlewares.retry.RetryMiddleware':90,
 #    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware':110,
-    'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
-    'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+#    'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+#    'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
 #'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware' :130,
 #    'zhihuSpider.middlewares.UAPOOLS':140
 }
 
 
+
+
+'''
 def load_lines(path):
     with open(path, 'rb') as f:
         return [line.strip() for line in
@@ -121,3 +128,7 @@ ROTATING_PROXY_BACKOFF_BASE = 999
 
 ROTATING_PROXY_BAN_POLICY = 'zhihuSpider.spiders.zhihuSpider.ZhihuBanDetectionPolicy'
 ROTATING_PROXY_PAGE_RETRY_TIMES = 999
+'''
+
+import os
+os.environ["DISPLAY"] = ":0" 

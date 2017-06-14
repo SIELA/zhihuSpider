@@ -10,12 +10,12 @@ import scrapy
 
 class ZhihuspiderItem(scrapy.Item):
     # define the fields for your item here like:
-#   uid = scrapy.Field()
+   urlToken = scrapy.Field()
+   pass
 #   name = scrapy.Field()
 #   now = scrapy.Field()
 #    edu = scrapy.Field()
 #    work = scrapy.Field()
 #    company = scrapy.Field()
-#    livein = scrapy.Field()
-    
-    pass
+#    livein = scrapy.Field() 
+
